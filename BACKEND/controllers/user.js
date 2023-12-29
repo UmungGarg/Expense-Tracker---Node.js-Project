@@ -20,3 +20,10 @@ exports.signup = async (req,res) => {
     res.status(500).json(err);
   }
 }
+
+exports.login = async (req,res) => {
+  User.findAll()
+  .then((users) => {
+    res.json(users);
+  })
+}

@@ -8,12 +8,20 @@ async function login(e){
             password:e.target.password.value
         }
         console.log(loginDetails)
-        const response = await axios.post('http://localhost:4050/user/login',loginDetails)
-        if(response.status === 201){
-            alert("User logged in successfully");
-        } else{
-            throw new Error('Failed to login')
-        }
+        const response = await axios.get('http://localhost:4050/user/login')
+        response.data.forEach(element => {
+            if(element.email == loginDetails.email){
+                if(element.password == loginDetails.password){
+                    alert("User logged in");
+                }
+                else{
+                    alert("Wrong password")
+                }
+            }
+            else{
+                alert("User not found")
+            }
+        });
     }catch(err){
         document.body.innerHTML += `<div style="color:red;">${err}<div>`;
     }

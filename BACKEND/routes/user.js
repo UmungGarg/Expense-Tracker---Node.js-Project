@@ -6,9 +6,9 @@ const userController = require('../controllers/user');
 
 const router = express.Router();
 
-// router.get('/add-exp', expController.getAddUser);
-
 router.post('/signup', userController.signup);
+
+router.get('/login', userController.login);
 
 // router.delete('/delete-exp/:expId', expController.postDeleteUser)
 
