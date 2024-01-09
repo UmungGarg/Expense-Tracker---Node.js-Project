@@ -9,6 +9,11 @@ async function login(e){
         }
         console.log(loginDetails)
         const response = await axios.post('http://localhost:4050/user/login', loginDetails)
+        if(response.status === 200){
+            window.location.href = "./expense.html"
+        } else{
+            throw new Error('Failed to login')
+        }
         // response.data.forEach(element => {
         //     if(element.email == loginDetails.email){
         //         if(element.password == loginDetails.password){

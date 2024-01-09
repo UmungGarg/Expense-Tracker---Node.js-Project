@@ -8,6 +8,7 @@ const app = express();
 var cors = require('cors');
 
 const userRoutes = require('./routes/user');
+const expenseRoutes = require('./routes/expense');
 
 app.use(bodyParser.json());
 // app.use(express.urlencoded());
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/user', userRoutes);
+app.use('/expense', expenseRoutes);
 
 // app.use(errorController.get404);
 
