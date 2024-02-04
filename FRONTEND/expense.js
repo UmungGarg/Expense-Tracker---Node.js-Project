@@ -1,3 +1,5 @@
+const { options } = require("../BACKEND/routes/user");
+
 function display(obj) {
     var list= document.querySelector(".list");
     var li = document.createElement("li");
@@ -53,3 +55,28 @@ window.addEventListener("DOMContentLoaded", async () => {
         display(element)
     });
 } )
+
+document.getElementById('rzp-button1').onclick = async function(e) {
+    const token = localStorage.getItem('token')
+    const response = await axios.get('http://localhost:4050/purchase/premiummembership', {headers: {"Authorization": token}}) 
+    console.log(response);
+    var options = {
+        "key": response.data.key_id,
+        "order_id": response.data.order.id,
+        "handler": async function (response) {
+            await axios.post('http://localhost:4050/purchase/updatetransactionstatus',{
+                order_id: options.order_id,
+                payment_id: response.razorpay_payment_id,
+            }, {headers: {"Authorization": token}})
+            alert('You are a premium user now')
+        },
+    };
+    const rzpl = new Razorpay(options);
+rzpl.open();
+e.preventDefault();
+
+rzpl.on('payment.failed', function(response){
+    console.log(response)
+    alert('Something went X')
+});
+}
