@@ -8,7 +8,7 @@ const Expense = sequelize.define('expense', {
     allowNull: false,
     primaryKey: true
   },
-  ExpAmt: Sequelize.STRING,
+  ExpAmt: Sequelize.INTEGER,
   Desc: {
     type: Sequelize.STRING,
     allowNull: false

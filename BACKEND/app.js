@@ -11,6 +11,7 @@ var cors = require('cors');
 const userRoutes = require('./routes/user');
 const expenseRoutes = require('./routes/expense');
 const purchaseRoutes = require('./routes/purchase');
+const premiumRoutes = require('./routes/premium');
 
 const Expense = require('./models/expense');
 const User = require('./models/user');
@@ -26,7 +27,7 @@ dotenv.config();
 app.use('/user', userRoutes);
 app.use('/expense', expenseRoutes);
 app.use('/purchase', purchaseRoutes);
-
+app.use('/premium', premiumRoutes);
 
 User.hasMany(Expense);
 Expense.belongsTo(User);
@@ -34,7 +35,7 @@ Expense.belongsTo(User);
 User.hasMany(Order);
 Order.belongsTo(User);
 
-sequelize.sync()
+sequelize.sync({force:true})
 .then(result => {
     app.listen(4050);
 })
