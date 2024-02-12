@@ -89,7 +89,7 @@ function showLeaderboard(){
         leaderboardElem.innerHTML = '<h1> Leader Board </h1>'
         console.log(leaderboardArray.data)
         leaderboardArray.data.forEach((userDetails) => {
-            leaderboardElem.innerHTML += `<li> Name - ${userDetails.name} Total Expense - ${userDetails.total_cost}`
+            leaderboardElem.innerHTML += `<li> Name - ${userDetails.name} Total Expense - ${userDetails.totalExpenses}`
         })
     }
     document.getElementById('message').appendChild(inputElement);

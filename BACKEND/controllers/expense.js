@@ -1,4 +1,6 @@
 const Expense = require('../models/expense');
+const User = require('../models/user');
+
 
 exports.addExpense = async (req,res) => {
     try{
@@ -10,7 +12,11 @@ exports.addExpense = async (req,res) => {
         }
         // req.user.createExpense({ExpAmt:amount,Desc:description,Catg:category})                 or(magic fn)
         let resp = await Expense.create({ExpAmt:amount,Desc:description,Catg:category, userId})
-        res.status(201).json({resp, success:true});
+        const totalexp = Number(req.user.totalExpenses) + Number(amount)
+        console.log(totalexp);
+        User.update({totalExpenses:totalexp},{where:{id:req.user.id}}).then(() => {
+            return res.status(200).json({resp, success:true});
+        })
     }catch(err){
         console.log(err);
         res.status(500).json(err)
