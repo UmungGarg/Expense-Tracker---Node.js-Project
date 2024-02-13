@@ -9,6 +9,6 @@ router.post('/addExpense', userAuthentication, expenseController.addExpense);
 
 router.get('/getList', userAuthentication, expenseController.getList);
 
-router.delete('/delList/:expId', userAuthentication, expenseController.delList);
+router.delete('/delList/:expId/:expAmt', userAuthentication, expenseController.delList);
 
 module.exports = router;

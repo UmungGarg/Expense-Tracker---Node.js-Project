@@ -21,7 +21,7 @@ function display(obj) {
 
     del.onclick = async () => {
         const token = localStorage.getItem('token')
-        await axios.delete(`http://localhost:4050/expense/delList/${obj.id}`, {headers: {"Authorization": token}})
+        await axios.delete(`http://localhost:4050/expense/delList/${obj.id}/${obj.ExpAmt}`, {headers: {"Authorization": token}})
         list.removeChild(li);
     }
 }
