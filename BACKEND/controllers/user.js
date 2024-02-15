@@ -1,6 +1,8 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
+const Sib = require('sib-api-v3-sdk')
+require('dotenv').config()
 
 function isStringValid(string){
   if(string == undefined || string.length === 0){
@@ -56,6 +58,35 @@ const login = async (req,res) => {
   }
 }
 
+const mail = async (req,res) => {
+  try{
+    const email = req.body.email;
+    const client = Sib.ApiClient.instance
+    const apiKey = client.authentications['api-key']
+    apiKey.apiKey = process.env.API_KEY
+    const tranEmailApi = new Sib.TransactionalEmailsApi()
+    const sender = {
+      email: "handsome.anmol5@gmail.com",
+      name: 'handsome'
+    }
+    const receivers = [
+      {
+        email
+      }
+    ]
+    const resp = await tranEmailApi.sendTransacEmail({
+      sender,
+      to: receivers,
+      subject: 'Reset Password',
+      textContent: `Forgot Password, Reset it`
+    })
+    console.log(resp)
+    res.status(200).json({resp, success:true});
+  }catch(err){
+    console.log(err)
+  }
+}
+
 module.exports = {
-  signup, generateAccessToken, login  
+  signup, generateAccessToken, login, mail
 }

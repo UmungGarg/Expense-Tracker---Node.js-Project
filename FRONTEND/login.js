@@ -33,3 +33,7 @@ async function login(e){
         document.body.innerHTML += `<div style="color:red;">${err}<div>`;
     }
 }
+
+async function forgotpassword() {
+    window.location.href = "./forgotPass.html"
+}
